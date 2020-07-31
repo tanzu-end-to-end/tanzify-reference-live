@@ -8,30 +8,11 @@ generate "custom-output" {
   path = "custom-output.tf"
   if_exists = "overwrite_terragrunt"
   contents = <<EOF
-output "tenant_id" {
-  value = var.hosted_zone
+
+output "ops_manager.private_key_pem" {
+  value = tls_private_key.ops_manager.private_key_pem
 }
-output "subscription_id" {
-  value = var.hosted_zone
-}
-output "client_id" {
-  value = var.hosted_zone
-}
-output "client_secret" {
-  value = var.hosted_zone
-}
-output "location" {
-  value = var.location
-}
-output "environment_name" {
-  value = var.environment_name
-}
-output "hosted_zone" {
-  value = var.hosted_zone
-}
-output "cloud_name" {
-  value = var.cloud_name
-}
+
 EOF
 }
 
@@ -57,5 +38,6 @@ inputs = {
   tenant_id = dependency.creds.outputs.azure_tenant_id
   client_id = dependency.creds.outputs.azure_client_id
   client_secret = dependency.creds.outputs.azure_client_secret
+  hosted_zone = "novant-demo.azure.pcf-arau.pw"
 
 }

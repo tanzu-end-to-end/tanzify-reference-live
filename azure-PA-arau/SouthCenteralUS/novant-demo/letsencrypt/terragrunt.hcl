@@ -4,9 +4,9 @@ dependency "creds" {
   config_path = "../lastpass"
 }
 
-/*dependencies {
+dependencies {
   paths = ["../paving"]
-}*/
+}
 
 terraform {
 
