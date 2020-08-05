@@ -1,7 +1,7 @@
 
 
 dependency "creds" {
-  config_path = "../lastpass"
+  config_path = "../secret-azure-creds"
 }
 
 dependencies {
