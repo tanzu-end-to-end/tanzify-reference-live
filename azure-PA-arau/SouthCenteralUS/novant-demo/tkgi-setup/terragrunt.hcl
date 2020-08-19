@@ -13,13 +13,13 @@ dependency "creds" {
 }
 
 
-//dependencies {
-//  paths = ["../opsman-compute", "../opsman-install"]
-//}
+dependencies {
+  paths = ["../opsman-compute", "../opsman-setup-scripts", "../opsman-install-configure"]
+}
 
 terraform {
   # Terraform azure for PAS and TKGI using paving repo
-  source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//tkgi-setup"
+  source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//tkgi-install-configure"
 
   extra_arguments "vars" {
     commands  = get_terraform_commands_that_need_vars()

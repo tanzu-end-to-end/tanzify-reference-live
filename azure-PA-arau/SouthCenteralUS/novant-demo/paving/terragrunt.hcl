@@ -109,5 +109,9 @@ output "services_subnet_range" { value   = local.stable_config.services_subnet_r
 output "ssl_certificate" { value  = local.stable_config.ssl_certificate}
 output "ssl_private_key" { value = local.stable_config.ssl_private_key}
 
+output "paving_config_yaml" {
+  value     = yamlencode(local.stable_config)
+  sensitive = true
+}
 EOF
 }
