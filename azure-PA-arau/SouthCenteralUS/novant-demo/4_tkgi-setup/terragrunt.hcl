@@ -1,24 +1,24 @@
 
-dependency "secret-pivnet" {
-  config_path = "../../../../secret-pivnet-token"
-}
-
-dependency "secret-opsman" {
-  config_path = "../../../../secret-opsman"
-}
 
 dependency "paving" {
-  config_path = "../paving"
+  config_path = "../1_paving"
+  mock_outputs_allowed_terraform_commands = ["validate"]
+  mock_outputs = {
+    ops_manager_dns = "fake"
+    ops_manager_ssh_private_key = "fake"
+    stable_config = "fake"
+  }
 }
+
+
 
 dependencies {
-  paths = ["../opsman-compute"]
+  paths = ["../2_letsencrypt","../3_opsman/opsman-install-configure"]
 }
 
-
 terraform {
-
-  source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//opsman/opsman-setup-scripts"
+  # Terraform azure for PAS and TKGI using paving repo
+  source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//tkgi-install-configure"
 
   extra_arguments "vars" {
     commands  = get_terraform_commands_that_need_vars()
@@ -32,12 +32,11 @@ terraform {
   }
 }
 
-inputs = {
 
-  opsman_password = dependency.secret-opsman.outputs.opsman_password
-  pivnet_token = dependency.secret-pivnet.outputs.pivnet_token
+inputs = {
 
   ops_manager_dns = dependency.paving.outputs.ops_manager_dns
   ops_manager_ssh_private_key = dependency.paving.outputs.ops_manager_ssh_private_key
 
+  tkgi_configuration_values = dependency.paving.outputs.stable_config
 }

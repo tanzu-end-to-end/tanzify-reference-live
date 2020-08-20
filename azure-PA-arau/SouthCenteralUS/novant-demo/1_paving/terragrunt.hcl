@@ -1,14 +1,22 @@
 
 
 dependency "creds" {
-  config_path = "../secret-azure-creds"
+  config_path = "../../../../secrets/secret-azure-creds"
+  # Configure mock outputs for the `validate` command that are returned when there are no outputs available (e.g the
+  # module hasn't been applied yet.
+  mock_outputs_allowed_terraform_commands = ["validate"]
+  mock_outputs = {
+    azure_subscription_id = "fake"
+    azure_tenant_id = "fake"
+    azure_client_id = "fake"
+    azure_client_secret = "fake"
+  }
 }
 
 
 terraform {
   # Terraform azure for PAS and TKGI using paving repo
   source = "git::git@github.com:pivotal/paving.git//azure"
-
   extra_arguments "vars" {
     commands  = get_terraform_commands_that_need_vars()
 

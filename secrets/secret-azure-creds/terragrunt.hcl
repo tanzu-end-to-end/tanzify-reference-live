@@ -30,6 +30,5 @@ terraform {
 
     required_var_files = ["${get_terragrunt_dir()}/terraform.tfvars"]
 
-    optional_var_files = ["${get_terragrunt_dir()}/../env.tfvars"]
   }
 }
