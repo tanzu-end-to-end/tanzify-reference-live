@@ -1,7 +1,7 @@
 
 
 dependency "creds" {
-  config_path = "../../../../secrets/secret-azure-creds"
+  config_path = "../0_secrets/secret-azure-creds"
   # Configure mock outputs for the `validate` command that are returned when there are no outputs available (e.g the
   # module hasn't been applied yet.
   mock_outputs_allowed_terraform_commands = ["validate"]
@@ -13,13 +13,10 @@ dependency "creds" {
   }
 }
 
-dependencies {
-  paths = ["../1_paving"]
-}
 
 terraform {
 
-  source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//azure/letsencrypt"
+  source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//azure/acme-certs"
   extra_arguments "vars" {
     commands  = get_terraform_commands_that_need_vars()
 

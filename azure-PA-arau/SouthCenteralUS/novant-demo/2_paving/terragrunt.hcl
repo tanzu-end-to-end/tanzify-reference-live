@@ -1,7 +1,7 @@
 
 
 dependency "creds" {
-  config_path = "../../../../secrets/secret-azure-creds"
+  config_path = "../0_secrets/secret-azure-creds"
   # Configure mock outputs for the `validate` command that are returned when there are no outputs available (e.g the
   # module hasn't been applied yet.
   mock_outputs_allowed_terraform_commands = ["validate"]
@@ -10,6 +10,15 @@ dependency "creds" {
     azure_tenant_id = "fake"
     azure_client_id = "fake"
     azure_client_secret = "fake"
+  }
+}
+
+dependency "certs" {
+  config_path = "../1_letsencrypt"
+  mock_outputs_allowed_terraform_commands = ["validate"]
+  mock_outputs = {
+    cert_full_chain = "fake"
+    cert_private_key = "fake"
   }
 }
 
@@ -35,10 +44,11 @@ inputs = {
   tenant_id = dependency.creds.outputs.azure_tenant_id
   client_id = dependency.creds.outputs.azure_client_id
   client_secret = dependency.creds.outputs.azure_client_secret
+  ssl_certificate = dependency.certs.outputs.cert_full_chain
+  ssl_private_key = dependency.certs.outputs.cert_private_key
   hosted_zone = "novant-demo.azure.pcf-arau.pw"
 
 }
-
 
 generate "custom-output" {
   path = "custom-output.tf"

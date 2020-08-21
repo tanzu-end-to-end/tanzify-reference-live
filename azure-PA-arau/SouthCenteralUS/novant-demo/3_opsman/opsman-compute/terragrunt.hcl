@@ -1,6 +1,6 @@
 
 dependency "creds" {
-  config_path = "../../../../../secrets/secret-azure-creds"
+  config_path = "../../0_secrets/secret-azure-creds"
   mock_outputs_allowed_terraform_commands = ["validate"]
   mock_outputs = {
     azure_subscription_id = "fake"
@@ -11,7 +11,7 @@ dependency "creds" {
 }
 
 dependency "paving" {
-  config_path = "../../1_paving"
+  config_path = "../../2_paving"
   mock_outputs_allowed_terraform_commands = ["validate"]
   mock_outputs = {
     ops_manager_ssh_public_key = "fake"
@@ -48,6 +48,7 @@ inputs = {
   client_secret =   dependency.creds.outputs.azure_client_secret
 
   ops_manager_ssh_public_key = dependency.paving.outputs.ops_manager_ssh_public_key
+  ops_manager_ssh_private_key = dependency.paving.outputs.ops_manager_ssh_private_key
   ops_manager_storage_account_name = dependency.paving.outputs.ops_manager_storage_account_name
   ops_manager_storage_container_name = dependency.paving.outputs.ops_manager_container_name
   ops_manager_dns = dependency.paving.outputs.ops_manager_dns
