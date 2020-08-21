@@ -1,7 +1,7 @@
 
 
 dependency "paving" {
-  config_path = "../1_paving"
+  config_path = "../2_paving"
   mock_outputs_allowed_terraform_commands = ["validate"]
   mock_outputs = {
     ops_manager_dns = "fake"
@@ -13,7 +13,7 @@ dependency "paving" {
 
 
 dependencies {
-  paths = ["../2_letsencrypt","../3_opsman/opsman-install-configure"]
+  paths = ["../3_opsman/opsman-install-configure"]
 }
 
 terraform {
