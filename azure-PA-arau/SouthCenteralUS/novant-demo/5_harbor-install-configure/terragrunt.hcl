@@ -1,4 +1,12 @@
 
+dependency "certs" {
+  config_path = "../1_letsencrypt"
+  mock_outputs_allowed_terraform_commands = ["validate", "plan"]
+  mock_outputs = {
+    cert_ca = "fake"
+  }
+}
+
 dependency "paving" {
   config_path = "../2_paving"
   mock_outputs_allowed_terraform_commands = ["validate", "plan"]
@@ -55,6 +63,7 @@ inputs = {
     "harbor_domain" = "${dependency.harbor_pave.outputs.harbor_domain}",
     "harbor_web_lb_name" = "${dependency.harbor_pave.outputs.harbor_web_lb_name}",
     "harbor_admin_password" = "VMware12"
+    "tls_ca_cert" = "${dependency.certs.outputs.cert_ca}"
   }
 }
 

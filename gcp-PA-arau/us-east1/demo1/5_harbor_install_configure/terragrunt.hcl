@@ -1,7 +1,16 @@
 
+dependency "certs" {
+  config_path = "../1_letsencrypt"
+  mock_outputs_allowed_terraform_commands = ["validate", "plan"]
+  mock_outputs = {
+    cert_ca = "fake"
+  }
+}
+
+
 dependency "paving" {
   config_path = "../2_paving"
-  mock_outputs_allowed_terraform_commands = ["validate"]
+  mock_outputs_allowed_terraform_commands = ["validate", "plan"]
   mock_outputs = {
     ops_manager_dns = "fake"
     ops_manager_ssh_private_key = "fake"
@@ -48,14 +57,17 @@ inputs = {
 
   ops_manager_dns = dependency.paving.outputs.ops_manager_dns
   ops_manager_ssh_private_key = dependency.paving.outputs.ops_manager_ssh_private_key
+
+  // Send in the paving config values as they are needed by the tile config
   tile_configuration_values = jsonencode(merge(jsondecode(dependency.paving.outputs.stable_config_opsmanager),
                                                 jsondecode(dependency.paving.outputs.stable_config_pas),
                                                 jsondecode(dependency.paving.outputs.stable_config_pks)))
-
+// These are needed by the tile
   map_extratile_configuration = {
     "harbor_domain" = "${dependency.harbor_pave.outputs.harbor_domain}",
     "harbor_web_lb_name" = "${dependency.harbor_pave.outputs.harbor_web_lb_name}",
     "harbor_admin_password" = "VMware12"
+    "tls_ca_cert" = "${dependency.certs.outputs.cert_ca}"
   }
 }
 

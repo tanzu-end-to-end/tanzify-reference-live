@@ -1,4 +1,4 @@
 tile_slug = "harbor-container-registry"
-tile_version = "1.10.3"
+tile_version = "1.9.4"
 
 
