@@ -1,4 +1,28 @@
 
+# Include all settings from the root terragrunt.hcl file
+include {
+  path = find_in_parent_folders()
+}
+
+locals {
+  # Automatically load account-level variables
+  account_vars = read_terragrunt_config(find_in_parent_folders("account.hcl"))
+
+  # Automatically load region-level variables
+  region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
+
+  # Automatically load environment-level variables
+  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+
+  # Extract the variables we need for easy access
+
+  region   = local.region_vars.locals.region
+  availability_zones = local.region_vars.locals.availability_zones
+  environment_name = local.environment_vars.locals.environment_name
+  hosted_zone = local.environment_vars.locals.hosted_zone
+  project = local.environment_vars.locals.project
+}
+
 
 dependency "creds" {
   config_path = "../0_secrets/secret-gcp-creds"
@@ -22,29 +46,24 @@ dependency "certs" {
 
 terraform {
   # Terraform azure for PAS and TKGI using paving repo
-  source = "git::git@github.com:pivotal/paving.git//gcp"
-
-  extra_arguments "vars" {
-    commands  = get_terraform_commands_that_need_vars()
-
-    optional_var_files = [
-      "${get_terragrunt_dir()}/terraform.tfvars",
-      "${get_terragrunt_dir()}/../env.tfvars",
-      "${get_terragrunt_dir()}/../../region.tfvars",
-      "${get_terragrunt_dir()}/../../../_global/terraform.tfvars"
-    ]
-  }
+  source = "git::git@github.com:abhinavrau/paving.git//gcp"
 }
 
 
 inputs = {
-
+  region   = local.region
+  environment_name = local.environment_name
+  hosted_zone = local.hosted_zone
+  project = local.project
+  availability_zones = local.availability_zones
+  service_account_key =  dependency.creds.outputs.service_account_key
   ssl_certificate = dependency.certs.outputs.cert_full_chain
   ssl_private_key = dependency.certs.outputs.cert_private_key
-  service_account_key =  dependency.creds.outputs.service_account_key
-
+  service_account_key = dependency.creds.outputs.service_account_key
 }
 
+
+// Output all the outputs for other modules to consume
 generate "custom-output" {
   path = "custom-output.tf"
   if_exists = "overwrite_terragrunt"

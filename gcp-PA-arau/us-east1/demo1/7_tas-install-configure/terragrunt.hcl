@@ -1,42 +1,50 @@
 
+locals {
+
+  # Automatically load account-level variables
+  account_vars = read_terragrunt_config(find_in_parent_folders("account.hcl"))
+
+  # Automatically load tkgi variables
+  tas4vms_vars = read_terragrunt_config("tas4vms_vars.hcl")
+
+  # Extract the variables we need for easy access
+  iaas = local.account_vars.locals.iaas
+
+  tas4vms_tile_version = local.tas4vms_vars.locals.tas4vms_tile_version
+
+
+}
 
 dependency "paving" {
   config_path = "../2_paving"
-  mock_outputs_allowed_terraform_commands = ["validate"]
+  mock_outputs_allowed_terraform_commands = ["validate", "plan"]
   mock_outputs = {
     ops_manager_dns = "fake"
     ops_manager_ssh_private_key = "fake"
-    stable_config = "fake"
+    stable_config_opsmanager = "{}"
+    stable_config_pas = "{}"
   }
 }
 
 
 
 dependencies {
-  paths = ["../3_opsman/opsman-install-configure"]
+  paths = ["../4_opsman/3_opsman-install-configure"]
 }
 
 terraform {
   # Terraform azure for PAS and TKGI using paving repo
   source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//tas4vms-install-configure"
 
-  extra_arguments "vars" {
-    commands  = get_terraform_commands_that_need_vars()
-
-    optional_var_files = [
-      "${get_terragrunt_dir()}/terraform.tfvars",
-      "${get_terragrunt_dir()}/../env.tfvars",
-      "${get_terragrunt_dir()}/../../region.tfvars",
-      "${get_terragrunt_dir()}/../../../_global/terraform.tfvars"
-    ]
-  }
 }
 
 
 inputs = {
-
+  iaas = local.iaas
+  tas4vms_tile_version = local.tas4vms_tile_version
   ops_manager_dns = dependency.paving.outputs.ops_manager_dns
   ops_manager_ssh_private_key = dependency.paving.outputs.ops_manager_ssh_private_key
 
-  tas4vms_configuration_values = dependency.paving.outputs.stable_config
+  tas4vms_configuration_values = jsonencode(merge(jsondecode(dependency.paving.outputs.stable_config_opsmanager),
+                                                  jsondecode(dependency.paving.outputs.stable_config_pas)))
 }

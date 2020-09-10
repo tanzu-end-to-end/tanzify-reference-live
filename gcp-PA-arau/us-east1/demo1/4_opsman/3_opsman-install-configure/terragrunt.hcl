@@ -30,20 +30,10 @@ dependencies {
   paths = ["../1_opsman-compute", "../2_opsman-setup-scripts"]
 }
 
-
 terraform {
 
   source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//opsman/opsman-install-configure"
-  extra_arguments "vars" {
-    commands  = get_terraform_commands_that_need_vars()
 
-    optional_var_files = [
-      "${get_terragrunt_dir()}/terraform.tfvars",
-      "${get_terragrunt_dir()}/../../env.tfvars",
-      "${get_terragrunt_dir()}/../../../region.tfvars",
-      "${get_terragrunt_dir()}/../../../../_global/terraform.tfvars"
-    ]
-  }
 }
 
 inputs = {

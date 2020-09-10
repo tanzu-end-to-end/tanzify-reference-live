@@ -1,3 +1,30 @@
+include {
+  path = find_in_parent_folders()
+}
+
+locals {
+  # Automatically load account-level variables
+  account_vars = read_terragrunt_config(find_in_parent_folders("account.hcl"))
+
+  # Automatically load region-level variables
+  region_vars = read_terragrunt_config(find_in_parent_folders("region.hcl"))
+
+  # Automatically load environment-level variables
+  environment_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
+
+  # Automatically load opsman variables
+  opsman_vars = read_terragrunt_config("opsman_vars.hcl")
+
+  # Extract the variables we need for easy access
+  opsman_build = local.opsman_vars.locals.opsman_build
+  opsman_version = local.opsman_vars.locals.opsman_version
+
+  region   = local.region_vars.locals.region
+  availability_zones = local.region_vars.locals.availability_zones
+  environment_name = local.environment_vars.locals.environment_name
+  hosted_zone = local.environment_vars.locals.hosted_zone
+  project = local.environment_vars.locals.project
+}
 
 dependency "creds" {
   config_path = "../../0_secrets/secret-gcp-creds"
@@ -23,20 +50,19 @@ dependency "paving" {
 
 terraform {
 
-  source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//gcp/opsman/opsman-compute"
-  extra_arguments "vars" {
-    commands  = get_terraform_commands_that_need_vars()
+  source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//google/google-opsman-compute"
 
-    optional_var_files = [
-      "${get_terragrunt_dir()}/terraform.tfvars",
-      "${get_terragrunt_dir()}/../../env.tfvars",
-      "${get_terragrunt_dir()}/../../../region.tfvars",
-      "${get_terragrunt_dir()}/../../../../_global/terraform.tfvars"
-    ]
-  }
 }
 
 inputs = {
+  region   = local.region
+  environment_name = local.environment_name
+  hosted_zone = local.hosted_zone
+  project = local.project
+  availability_zones = local.availability_zones
+
+  opsman_build = local.opsman_build
+  opsman_version = local.opsman_version
 
   service_account_key = dependency.creds.outputs.service_account_key
   ops_manager_ssh_public_key = dependency.paving.outputs.ops_manager_ssh_public_key
