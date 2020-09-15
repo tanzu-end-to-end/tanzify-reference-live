@@ -20,7 +20,7 @@ locals {
 }
 
 dependencies {
-  paths = ["../3_harbor_install_configure"]
+  paths = ["../3_harbor-install-configure"]
 }
 
 terraform {

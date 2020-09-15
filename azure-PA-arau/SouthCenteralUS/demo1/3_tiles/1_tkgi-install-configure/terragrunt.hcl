@@ -47,7 +47,7 @@ inputs = {
   tkgi_tile_version = local.tkgi_tile_version
   ops_manager_dns = dependency.paving.outputs.ops_manager_dns
   ops_manager_ssh_private_key = dependency.paving.outputs.ops_manager_ssh_private_key
-  tkgi_api_dns_domain = dependency.paving.outputs.pks_api_dns_domain
+  tkgi_api_dns_domain = dependency.paving.outputs.pks_dns
   tkgi_configuration_values = jsonencode(merge(jsondecode(dependency.paving.outputs.stable_config_opsmanager),
   jsondecode(dependency.paving.outputs.stable_config_pks)))
   plan_name = local.plan_name
