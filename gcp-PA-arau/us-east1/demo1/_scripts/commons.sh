@@ -21,55 +21,46 @@ abort()
     fi
 }
 
-terragrunt_apply_all()
+run_terragrunt_all()
 {
-  cd $SCRIPT_DIR
-  file="terragrunt-modules.list"
-  while IFS= read -r app
-  do
-    if [ ! "${app:0:1}" == "#" ]
-    then
-      terragrunt apply-all --terragrunt-non-interactive
-    fi
-  done < "$file"
-  wait
+
+  run_terragrunt_infra apply-all
+  run_terragrunt_opsman apply-all
+  run_terragrunt_tiles apply-all
 
 }
 
-terragrunt_plan_all()
+run_terragrunt_opsman()
 {
-  cd $SCRIPT_DIR
-  file="terragrunt-modules.list"
-  while IFS= read -r app
-  do
-    if [ ! "${app:0:1}" == "#" ]
-    then
-      terragrunt plan-all --terragrunt-non-interactive
-    fi
-  done < "$file"
-  wait
-
+  run_terragrunt 2_opsman $1
 }
 
-terragrunt_validate_all()
+run_terragrunt_infra()
 {
-  cd $SCRIPT_DIR
-  file="terragrunt-modules.list"
-  while IFS= read -r app
-  do
-    if [ ! "${app:0:1}" == "#" ]
-    then
-      terragrunt validate-all --terragrunt-non-interactive
-    fi
-  done < "$file"
-  wait
-
+  #Apply 0_secrets first since without that we cannot authenticate to the cloud providers to know what to create.
+  run_terragrunt 1_infra/0_secrets apply-all
+  run_terragrunt 1_infra $1
 }
+
+run_terragrunt_tiles()
+{
+  run_terragrunt 3_tiles $1
+}
+
+
+run_terragrunt()
+{
+  echo_msg "Running terragrunt $2 in directory $1"
+  cd $BASE_DIR/$1
+  terragrunt $2 --terragrunt-non-interactive
+}
+
 
 echo_msg()
 {
   echo ""
-  echo "************** ${1} **************"
+  echo "********************* ${1} *****************************"
+  echo ""
 }
 
 trap 'abort $LINENO' 0

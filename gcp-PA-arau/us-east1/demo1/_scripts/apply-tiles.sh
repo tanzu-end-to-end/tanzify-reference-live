@@ -12,8 +12,10 @@ source ./commons.sh
 main()
 {
 
-   run_terragrunt_all apply-all
+   run_terragrunt_tiles apply-all
 }
+
+
 
 main
 

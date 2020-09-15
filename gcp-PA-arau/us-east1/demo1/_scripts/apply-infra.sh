@@ -11,8 +11,7 @@ source ./commons.sh
 
 main()
 {
-
-   run_terragrunt_all apply-all
+   run_terragrunt_infra apply-all
 }
 
 main
