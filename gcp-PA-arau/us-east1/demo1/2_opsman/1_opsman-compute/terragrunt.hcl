@@ -1,6 +1,3 @@
-include {
-  path = find_in_parent_folders()
-}
 
 locals {
   # Automatically load account-level variables

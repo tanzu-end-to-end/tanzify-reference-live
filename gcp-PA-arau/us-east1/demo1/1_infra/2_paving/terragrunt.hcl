@@ -1,8 +1,4 @@
 
-# Include all settings from the root terragrunt.hcl file
-include {
-  path = find_in_parent_folders()
-}
 
 locals {
   # Automatically load account-level variables
@@ -60,7 +56,7 @@ inputs = {
   service_account_key =  dependency.creds.outputs.service_account_key
   ssl_certificate = dependency.certs.outputs.cert_full_chain
   ssl_private_key = dependency.certs.outputs.cert_private_key
-  service_account_key = dependency.creds.outputs.service_account_key
+
 }
 
 
