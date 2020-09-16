@@ -23,11 +23,16 @@ abort()
 
 run_terragrunt_all()
 {
-
+  run_terragrunt_secrets apply-all
   run_terragrunt_infra apply-all
   run_terragrunt_opsman apply-all
   run_terragrunt_tiles apply-all
 
+}
+
+run_terragrunt_secrets()
+{
+  run_terragrunt 0_secrets $1
 }
 
 run_terragrunt_opsman()
@@ -37,8 +42,6 @@ run_terragrunt_opsman()
 
 run_terragrunt_infra()
 {
-  #Apply 0_secrets first since without that we cannot authenticate to the cloud providers to know what to create.
-  run_terragrunt 1_infra/0_secrets apply-all
   run_terragrunt 1_infra $1
 }
 

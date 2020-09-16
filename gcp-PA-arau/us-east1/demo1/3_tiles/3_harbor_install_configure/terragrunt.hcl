@@ -24,7 +24,7 @@ dependency "certs" {
 }
 
 dependency "secret-opsman" {
-  config_path = "../../1_infra/0_secrets/secret-opsman"
+  config_path = "../../0_secrets/secret-opsman"
 
   # Configure mock outputs for the `validate` command that are returned when there are no outputs available (e.g the
   # module hasn't been applied yet.

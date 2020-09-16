@@ -22,7 +22,7 @@ locals {
 }
 
 dependency "creds" {
-  config_path = "../0_secrets/secret-gcp-creds"
+  config_path = "../../0_secrets/secret-gcp-creds"
   # Configure mock outputs for the `validate` command that are returned when there are no outputs available (e.g the
   # module hasn't been applied yet.
   mock_outputs_allowed_terraform_commands = ["validate", "plan"]

@@ -24,7 +24,7 @@ locals {
 }
 
 dependency "creds" {
-  config_path = "../../1_infra/0_secrets/secret-gcp-creds"
+  config_path = "../../0_secrets/secret-gcp-creds"
   mock_outputs_allowed_terraform_commands = ["validate", "plan"]
   mock_outputs = {
     service_account_key = "fake"
