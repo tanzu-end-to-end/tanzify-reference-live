@@ -2,11 +2,21 @@
 
 
 # This script:
-#   1) Reads terragrunt-modules.list
-#   2) Calls terragrunt plan-all on each module directory
+#   1)  Calls terragrunt apply-all on each module directory
 #
 
+# For using LastPass for secrets, make sure to
+# 1) Install the LastPass CLI and configure it to the account that has your secrets
+# 2) Make sure to export the vriables LASTPASS_USER and LASTPASS_PASSWORD
+
 source ./commons.sh
+
+
+run_terragrunt_secrets()
+{
+  run_terragrunt 0_secrets $1
+}
+
 
 
 main()

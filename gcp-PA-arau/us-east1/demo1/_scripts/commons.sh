@@ -21,34 +21,7 @@ abort()
     fi
 }
 
-run_terragrunt_all()
-{
-  run_terragrunt_secrets apply-all
-  run_terragrunt_infra apply-all
-  run_terragrunt_opsman apply-all
-  run_terragrunt_tiles apply-all
 
-}
-
-run_terragrunt_secrets()
-{
-  run_terragrunt 0_secrets $1
-}
-
-run_terragrunt_opsman()
-{
-  run_terragrunt 2_opsman $1
-}
-
-run_terragrunt_infra()
-{
-  run_terragrunt 1_infra $1
-}
-
-run_terragrunt_tiles()
-{
-  run_terragrunt 3_tiles $1
-}
 
 
 run_terragrunt()

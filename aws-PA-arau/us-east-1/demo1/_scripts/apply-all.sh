@@ -8,10 +8,20 @@
 
 source ./commons.sh
 
+run_terragrunt_all()
+{
+  run_terragrunt_secrets apply-all
+  run_terragrunt_infra apply-all
+  run_terragrunt_opsman apply-all
+  run_terragrunt_tiles apply-all
+
+}
+
 
 main()
 {
-   run_terragrunt_infra apply-all
+
+   run_terragrunt_all
 }
 
 main
