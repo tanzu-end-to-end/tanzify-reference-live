@@ -2,7 +2,7 @@
 
 # Tanzify Live Repo
 
- [Terragrunt](https://terragrunt.gruntwork.io) Modules that install VMware Tanzu Products. This uses terraform modules from https://github.com/abhinavrau/tanzify-infrastructure
+ [Terragrunt](https://terragrunt.gruntwork.io) Modules that install VMware Tanzu Products. This uses terraform modules from  [tanzify-infrastructure](../tanzify-infrastructure)
  
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
@@ -53,7 +53,7 @@ It also supports installing the following Tiles.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This uses terraform modules from https://github.com/abhinavrau/tanzify-infrastructure
+This uses terraform modules from [tanzify-infrastructure](../tanzify-infrastructure)
 
 More details on why is detailed in the Terragrunt docs [here](https://terragrunt.gruntwork.io/docs/getting-started/quick-start/#promote-immutable-versioned-terraform-modules-across-environments) 
 and [here](https://blog.gruntwork.io/5-lessons-learned-from-writing-over-300-000-lines-of-infrastructure-code-36ba7fadeac1)
