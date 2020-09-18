@@ -1,5 +1,6 @@
 ![Logo of the project](images/logo.png)
-#Tanzify Live Repo
+
+# Tanzify Live Repo
 
  [Terragrunt](https://terragrunt.gruntwork.io) Modules that install VMware Tanzu Products. This uses terraform modules from https://github.com/abhinavrau/tanzify-infrastructure
  
@@ -44,7 +45,7 @@ It also supports installing the following Tiles.
 | Spring Cloud Gateway  |
 | SSO |
 
-*Note:* Not all versions of tiles have been tested so your mileage may vary. 
+**Note:** Not all versions of tiles have been tested, so your mileage may vary.  
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -91,13 +92,45 @@ env.hcl
 * Pave Network and Storage:
   -  From`_scripts` directory run `1_apply_infra`
 * Install OpsMan
-  - Modify 1_opsman-compute/opsman_vars.hcl to reflect the version and build of Opsman to use.
+  - Modify `1_opsman-compute/opsman_vars.hcl` to reflect the version and build of Opsman to use.
   - From`_scripts` directory run `2_apply_infra` to install OpsMan and BOSH director
 * Install Tiles
-  - Modify 1_tkgi-install-configure/tkgi_vars.hcl to reflect the version of TKGI to install.
-  - Modify 2_tas-install-configure/tas4vms_vars.hcl to reflect the version of TAS to install.
-  - Modify 3_harbor-install-configure/harbor_vars.hcl to reflect the version of Harbor to install.
+  - Modify `1_tkgi-install-configure/tkgi_vars.hcl` to reflect the version of TKGI to install.
+  - Modify `2_tas-install-configure/tas4vms_vars.hcl` to reflect the version of TAS to install.
+  - Modify `3_harbor-install-configure/harbor_vars.hcl` to reflect the version of Harbor to install.
   - From`_scripts` directory run `3_apply_tiles.sh` to install TAS/TKGI/Harbor
+  
+  - To Install other tiles, take a look at the `3_harbor-install-configure/terragrunt.hcl` and tile configurations under the terraform module `tanzify-infrastructure/tile-install-configure/configuration`
+
+## Troubeshooting
+
+1. Running `./0_apply_secrets.sh` throwing errors. 
+  **Possible Fix:** LastPass CLI may have logged you out. Run `lpass login`
+2. Something went wrong with a module and I need to run it again. 
+**Possible Fix:** Navigate to the directory with the problem and remove the `.terragrunt-cache` directory which will refecth the module and reset your state. 
+  You can run `find . -type d -name ".terragrunt-cache" -prune -exec rm -rf {} \;` to recuresively delete the .terragrunt-cache directories. 
+
+## Cleanup
+
+To delete the installation completely including OpsMan and all Tiles, follow these steps:
+1. From`_scripts` directory run `./ssh_opsman.sh` to login to OpsMan
+2. Run `destroy_opsman` to delete all tiles including BOSH Director. Run `exit` 
+3. Navigate to `2_opsman` directory. Run `terragrunt destroy-all --terragrunt-non-interactive`
+4. Navigate to `1_infra` directory. Run `terragrunt destroy-all --terragrunt-non-interactive`
+
+### Cleaning up when you mess up something
+If you don't have the previous terragrunt state directories (or deleted them by mistake) and terragrunt can't destroy the resources. you can use [leftovers](https://github.com/genevieve/leftovers)
+
+For GCP run:
+`leftovers --iaas=gcp --gcp-service-account-key=path/to/serviceaccount.json --filter=<environment-name>`
+
+For AWS run:
+`leftovers --iaas=aws --aws-access-key-id=<..> --aws-secret-access-key=<..> --aws-region=<region>> --filter=<environment-name>`
+
+For Azure run:
+`leftovers --iaas=azure --azure-client-id=<...> --azure-client-secret=<..> --azure-tenant-id=<..> --azure-subscription-id=<..> --filter=<environment-name>`
+
+The environment-name is the same as the resource group in Azure.
 
 <!-- LICENSE -->
 ## License
