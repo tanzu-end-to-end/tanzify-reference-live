@@ -24,3 +24,5 @@ override.tf.json
 
 .idea
 .terragrunt-cache
+
+.DS_Store
