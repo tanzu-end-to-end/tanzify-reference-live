@@ -72,6 +72,10 @@ inputs = {
   ssl_cert = dependency.paving.outputs.ssl_certificate
   ssl_private_key = dependency.paving.outputs.ssl_private_key
 
+  # only needed if you are installing harbor. Remove this block if not installing harbor for aws
+  map_extra_opsman_configuration_values = {
+    "harbor_lb_security_group_id" = "${dependency.harbor-pave.outputs.harbor_lb_security_group_id}",
+  }
 
 
 }

@@ -21,6 +21,7 @@ terraform {
 
   source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//secret-store/lastpass"
 }
+
 inputs = {
   credential-LastPassID = local.gcp_service_account_LastPassID
 }

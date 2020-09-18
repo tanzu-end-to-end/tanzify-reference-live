@@ -31,6 +31,13 @@ run_terragrunt()
   terragrunt $2 --terragrunt-non-interactive
 }
 
+run_terragrunt_no_parallelism()
+{
+  echo_msg "Running terragrunt $2 in directory $1 with parallelism set to 1"
+  cd $BASE_DIR/$1
+  terragrunt $2 --terragrunt-non-interactive --terragrunt-parallelism 1
+}
+
 
 echo_msg()
 {

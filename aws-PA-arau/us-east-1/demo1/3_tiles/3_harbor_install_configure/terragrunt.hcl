@@ -59,7 +59,7 @@ dependency "harbor_pave" {
 }
 
 dependencies {
-  paths = ["../../2_opsman/3_opsman-install-configure", "../1_tkgi-install-configure"]
+  paths = ["../../2_opsman/3_opsman-install-configure"]
 }
 
 terraform {

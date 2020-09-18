@@ -70,4 +70,5 @@ inputs = {
   ops_manager_security_group_id = dependency.paving.outputs.ops_manager_security_group_id
   public_subnet_ids = dependency.paving.outputs.public_subnet_ids
   ops_manager_dns = dependency.paving.outputs.ops_manager_dns
+  ops_manager_public_ip = dependency.paving.outputs.ops_manager_public_ip
 }

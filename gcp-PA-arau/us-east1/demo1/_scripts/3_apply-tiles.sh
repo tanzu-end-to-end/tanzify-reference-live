@@ -11,7 +11,7 @@ source ./commons.sh
 
 run_terragrunt_tiles()
 {
-  run_terragrunt 3_tiles $1
+  run_terragrunt_no_parallelism 3_tiles $1
 }
 main()
 {
