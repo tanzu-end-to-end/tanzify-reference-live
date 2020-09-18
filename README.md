@@ -47,7 +47,8 @@ It also supports installing the following Tiles.
 | Spring Cloud Gateway  |
 | SSO |
 
-**Note:** Not all versions of tiles have been tested, so your mileage may vary.  
+**Note:** Not all versions of tiles have been tested, so your mileage may vary. Take a look the https://github.com/abhinavrau/tanzify-infrastructure/tree/master/tile-install-configure/configuration to see supported tile configs.
+ 
 
 <!-- GETTING STARTED -->
 ## Getting Started
@@ -85,8 +86,8 @@ env.hcl
 
 * Secrets:
     - If Using LastPass, install & configure LastPass CLI
-    - Store your secrets (Cloud provider credentials, Opsman password and Pivnet token) in LastPass
-    - Modify the LastPass item ID in the `.hcl` files under the directory `0_secrets`. Hint: Use `lpass ls | grep itemname ` to find item ID.
+    - Store your secrets (Cloud provider credentials, Opsman password and Pivnet token) in LastPass. Take a look at one of the `terragrunt.hcl` files in the the `0_secrets` directory for an example.
+    - Modify the LastPass item ID in the `.hcl` files under the `0_secrets` directory for the relevant secret. **Hint:** Use `lpass ls | grep itemname ` to find item ID.
     - `export LASTPASS_PASSWORD="~/.lpass"`  and `export LASTPASS_USER="lastpassuserid"`
     - cd `_scripts`
     - run `./0_apply_secrets.sh` to make secrets are being fetched correctly.

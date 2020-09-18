@@ -10,6 +10,7 @@ generate "custom-output" {
   if_exists = "overwrite_terragrunt"
   contents = <<EOF
 
+  # This is a custom item type in LastPass with 2 fields
   output "access_key" {
     value = data.lastpass_secret.credentials.custom_fields.access_key
   }

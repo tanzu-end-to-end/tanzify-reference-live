@@ -8,7 +8,7 @@ generate "custom-output" {
   path = "outputs.tf"
   if_exists = "overwrite_terragrunt"
   contents = <<EOF
-
+  # This is a custom item type in LastPass with 1 field
   output "pivnet_token" {
     value = data.lastpass_secret.credentials.custom_fields.pivnet-token
   }

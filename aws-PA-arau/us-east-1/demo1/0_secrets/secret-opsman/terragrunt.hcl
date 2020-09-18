@@ -8,7 +8,7 @@ generate "custom-output" {
   path = "outputs.tf"
   if_exists = "overwrite_terragrunt"
   contents = <<EOF
-
+  # This is a normal web password stored in lastpass
   output "opsman_password" {
     value = data.lastpass_secret.credentials.password
   }
