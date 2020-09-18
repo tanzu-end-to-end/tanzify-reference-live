@@ -33,7 +33,7 @@ dependencies {
 
 terraform {
 
-  source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//opsman/opsman-setup-scripts"
+  source = "git::git@github.com:tanzu-end-to-end/tanzify-infrastructure.git//opsman/opsman-setup-scripts"
 }
 
 inputs = {

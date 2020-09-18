@@ -35,7 +35,7 @@ dependency "paving" {
 
 
 terraform {
-  source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//google/google-harbor-pave"
+  source = "git::git@github.com:tanzu-end-to-end/tanzify-infrastructure.git//google/google-harbor-pave"
 }
 
 

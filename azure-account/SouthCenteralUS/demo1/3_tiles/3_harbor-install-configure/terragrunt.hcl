@@ -64,7 +64,7 @@ dependencies {
 
 terraform {
 
-  source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//tile-install-configure"
+  source = "git::git@github.com:tanzu-end-to-end/tanzify-infrastructure.git//tile-install-configure"
 }
 
 

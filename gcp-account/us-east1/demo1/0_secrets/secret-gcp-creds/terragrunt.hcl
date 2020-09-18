@@ -19,7 +19,7 @@ EOF
 
 terraform {
 
-  source = "git::git@github.com:abhinavrau/tanzify-infrastructure.git//secret-store/lastpass"
+  source = "git::git@github.com:tanzu-end-to-end/tanzify-infrastructure.git//secret-store/lastpass"
 }
 
 inputs = {
