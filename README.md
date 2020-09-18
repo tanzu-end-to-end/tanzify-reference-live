@@ -12,6 +12,8 @@
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
 * [Usage](#usage)
+* [Troubleshooting](#troubleshooting)
+* [Cleanup](#cleanup)
 * [License](#license)
 * [Acknowledgements](#acknowledgements)
 
@@ -115,22 +117,22 @@ env.hcl
 To delete the installation completely including OpsMan and all Tiles, follow these steps:
 1. From`_scripts` directory run `./ssh_opsman.sh` to login to OpsMan
 2. Run `destroy_opsman` to delete all tiles including BOSH Director. Run `exit` 
-3. Navigate to `2_opsman` directory. Run `terragrunt destroy-all --terragrunt-non-interactive`
-4. Navigate to `1_infra` directory. Run `terragrunt destroy-all --terragrunt-non-interactive`
+3. Navigate to `2_opsman` directory. Run `terragrunt destroy-all --terragrunt-non-interactive` to destroy the opsman VM.
+4. Navigate to `1_infra` directory. Run `terragrunt destroy-all --terragrunt-non-interactive` to delete all the cloud network resources.
 
 ### Cleaning up when you mess up something
 If you don't have the previous terragrunt state directories (or deleted them by mistake) and terragrunt can't destroy the resources. you can use [leftovers](https://github.com/genevieve/leftovers)
 
-For GCP run:
+**GCP:**
 `leftovers --iaas=gcp --gcp-service-account-key=path/to/serviceaccount.json --filter=<environment-name>`
 
-For AWS run:
+**AWS:**
 `leftovers --iaas=aws --aws-access-key-id=<..> --aws-secret-access-key=<..> --aws-region=<region>> --filter=<environment-name>`
 
-For Azure run:
+**Azure:**
 `leftovers --iaas=azure --azure-client-id=<...> --azure-client-secret=<..> --azure-tenant-id=<..> --azure-subscription-id=<..> --filter=<environment-name>`
 
-The environment-name is the same as the resource group in Azure.
+The environment-name is the same as the resource group name in Azure.
 
 <!-- LICENSE -->
 ## License
