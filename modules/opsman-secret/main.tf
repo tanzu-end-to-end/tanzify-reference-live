@@ -1,4 +1,4 @@
-variable "opsman_secret" {
-  type = string
-  sensitive = true
+data "random_string" "opsman_secret" {
+  length = 24
+  special = false
 }
