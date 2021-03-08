@@ -1,18 +1,18 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 
 # This script:
-#   Calls terragrunt apply-all on each module directory
+#   Calls terragrunt run-all apply on each module directory
 #
 
 source ./commons.sh
 
 run_terragrunt_all()
 {
-  run_terragrunt 0_secrets apply-all
-  run_terragrunt 1_infra apply-all
-  run_terragrunt 2_opsman apply-all
-  run_terragrunt_no_parallelism 3_tiles apply-all
+  run_terragrunt 0_secrets "run-all apply"
+  run_terragrunt 1_infra "run-all apply"
+  run_terragrunt 2_opsman "run-all apply"
+  run_terragrunt_no_parallelism 3_tiles "run-all apply"
 
 }
 

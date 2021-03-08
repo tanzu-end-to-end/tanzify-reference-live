@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # set some variables
 BASE_DIR=$(dirname "$(pwd)")

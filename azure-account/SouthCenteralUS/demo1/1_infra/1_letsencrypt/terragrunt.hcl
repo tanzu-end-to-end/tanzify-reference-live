@@ -37,7 +37,7 @@ dependency "creds" {
 
 terraform {
 
-  source = "git::git@github.com:tanzu-end-to-end/tanzify-infrastructure.git//azure/azure-acme-certs"
+  source = "git::https://github.com/tanzu-end-to-end/tanzify-infrastructure.git//azure/azure-acme-certs"
 }
 
 inputs = {

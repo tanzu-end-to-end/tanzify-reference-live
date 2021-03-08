@@ -36,7 +36,7 @@ dependencies {
 
 terraform {
   # Terraform azure for PAS and TKGI using paving repo
-  source = "git::git@github.com:tanzu-end-to-end/tanzify-infrastructure.git//tkgi-install-configure"
+  source = "git::https://github.com/tanzu-end-to-end/tanzify-infrastructure.git//tkgi-install-configure"
 
 }
 

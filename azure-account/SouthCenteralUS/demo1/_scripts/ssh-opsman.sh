@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Script to SSH into Opsman VM. Requires that 2_opsman/1_opsman-compute has been run successfully to creat the opsman vm
 

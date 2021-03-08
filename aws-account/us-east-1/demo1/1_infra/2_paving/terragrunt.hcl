@@ -44,7 +44,7 @@ dependency "certs" {
 
 terraform {
   # Terraform azure for PAS and TKGI using paving repo
-  source = "git::git@github.com:abhinavrau/paving.git//aws"
+  source = "git::https://github.com/abhinavrau/paving.git//aws"
 }
 
 

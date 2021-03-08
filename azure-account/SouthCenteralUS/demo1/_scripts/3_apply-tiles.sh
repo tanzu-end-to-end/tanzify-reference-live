@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 
 # This script:
-#   1)  Calls terragrunt apply-all on each module directory
+#   1)  Calls terragrunt run-all apply on each module directory
 #
 
 source ./commons.sh
@@ -11,12 +11,12 @@ source ./commons.sh
 
 run_terragrunt_tiles()
 {
-  run_terragrunt_no_parallelism 3_tiles $1
+  run_terragrunt_no_parallelism 3_tiles "$1"
 }
 main()
 {
 
-   run_terragrunt_tiles apply-all
+   run_terragrunt_tiles "run-all apply"
 }
 
 

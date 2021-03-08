@@ -54,7 +54,7 @@ dependencies {
 
 terraform {
 
-  source = "git::git@github.com:tanzu-end-to-end/tanzify-infrastructure.git//opsman/opsman-install-configure"
+  source = "git::https://github.com/tanzu-end-to-end/tanzify-infrastructure.git//opsman/opsman-install-configure"
 
 }
 

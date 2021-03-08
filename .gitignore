@@ -1,28 +1,35 @@
-
+# Terraform
+.terraform.lock.hcl
 **/.terraform/*
-
-# .tfstate files
+terraform.log
 **/*.tfstate
 **/*.tfstate.*
-
 **/*.tfplan
-
-**/*.orig
-
-crash.log
-
 override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
 
+# Miscellaneous
+**/*.orig
+crash.log
+
+# Keys
 **/*.pem
 **/*.pem.pub
 
 # Ignore platform automation's default output
 **/output.json
 
+# IDE
 .idea
-.terragrunt-cache
+.eclipse
+.history/
 
+# Terragrunt
+.terragrunt-cache
+terragrunt-debug.tfvars.json
+terragrunt.hcl.backup
+
+# MacOS
 .DS_Store

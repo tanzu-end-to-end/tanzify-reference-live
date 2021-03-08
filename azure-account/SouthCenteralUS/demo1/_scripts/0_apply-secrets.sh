@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 
 # This script:
-#   1)  Calls terragrunt apply-all on each module directory
+#   1)  Calls terragrunt run-all apply on each module directory
 #
 
 # For using LastPass for secrets, make sure to
@@ -14,14 +14,14 @@ source ./commons.sh
 
 run_terragrunt_secrets()
 {
-  run_terragrunt 0_secrets $1
+  run_terragrunt 0_secrets "$1"
 }
 
 
 
 main()
 {
-   run_terragrunt_secrets apply-all
+   run_terragrunt_secrets "run-all apply"
 }
 
 main

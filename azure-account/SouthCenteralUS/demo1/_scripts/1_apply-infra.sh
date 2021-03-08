@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 
 # This script:
-#   1)  Calls terragrunt apply-all on each module directory
+#   1)  Calls terragrunt run-all apply on each module directory
 #
 
 source ./commons.sh
@@ -10,11 +10,11 @@ source ./commons.sh
 
 run_terragrunt_infra()
 {
-  run_terragrunt 1_infra $1
+  run_terragrunt 1_infra "$1"
 }
 main()
 {
-   run_terragrunt_infra apply-all
+   run_terragrunt_infra "run-all apply"
 }
 
 main
